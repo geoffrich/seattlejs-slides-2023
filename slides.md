@@ -1,433 +1,644 @@
 ---
 theme: seriph
-background: https://source.unsplash.com/collection/94734566/1920x1080
-class: text-center
+background: ""
+class: "bg-gradient-to-r from-gray-100 to-gray-400 dark:from-gray-700 dark:to-gray-900 p-0"
 highlighter: shiki
 lineNumbers: false
-info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
 drawings:
   persist: false
 transition: slide-left
-title: Welcome to Slidev
+title: SvelteKit intro
 ---
 
-# Welcome to Slidev
+# Web development, streamlined
 
-Presentation slides for developers
+## An introduction to SvelteKit
 
-<div class="pt-12">
-  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
-  </span>
-</div>
+<img class="mt-20" src="/svelte-machine.png" />
 
-<div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
-    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon-logo-github />
-  </a>
-</div>
+---
+
+# About me
+
+- Svelte maintainer
+- Senior Software Engineer at Ordergroove
+- pianist
+- cat lover
+
+TODO pics
+
+---
+
+# What is Svelte?
+
+- component-based JS framework
+- uses a compiler
 
 <!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
+- [ show of hands — who has heard of Svelte? used Svelte? ]
+- So Svelte has been getting fairly well known these days, but in case this is your first time hearing about it — it is a component-based JavaScript framework like React and Vue, but the major difference is instead of interpreting your component code with a runtime it ships to the browser, it compiles your components into vanilla JavaScript at build time. So on average, this makes for applications that are typically smaller and faster than applications built with the other big frameworks.
 -->
 
 ---
-transition: fade-out
+layout: fact
 ---
 
-# What is Slidev?
+# 3KB
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - theme can be shared and used with npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embedding Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - anything possible on a webpage
-
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/guide/syntax#embedded-styles
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
-
----
-layout: default
----
-
-# Table of contents
-
-```
-<Toc minDepth="1" maxDepth="5"></Toc>
-```
-
-<Toc></Toc>
-
----
-transition: slide-up
-
-level: 2
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-### Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
----
-
-# Code
-
-Use code snippets and get the highlighting directly![^1]
-
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  role: string
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id)
-  const newUser = { ...user, ...update }
-  saveUser(id, newUser)
-}
-```
-
-<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
-
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
-
-<style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
+(gzipped and compressed)
 
 ---
 
-# Components
+# Minimal boilerplate
 
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="-t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
----
-preload: false
----
-
-# Animations
-
-Animations are powered by [@vueuse/motion](https://motion.vueuse.org/).
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }">
-  Slidev
-</div>
-```
-
-<div class="w-60 relative mt-6">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-square.png"
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-circle.png"
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-triangle.png"
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
+```svelte {all|2,13|3,7|3,10-12|all}
+<script>
+  export let label = 'Increase count';
+  let count = 0;
+  $: doubled = count * 2;
 </script>
 
-<div
-  v-motion
-  :initial="{ x:35, y: 40, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
+<p>The count is {count}</p>
+<p>Doubled: {doubled}</p>
 
-[Learn More](https://sli.dev/guide/animations.html#motion)
+<button on:click={() => {
+  count = count + 1;
+}}>
+  {label}
+</button>
+
+<style>
+  button {
+    padding: 0.5rem;
+  }
+</style>
+```
+
+<!--
+- And because it’s a compiler, the component authoring experience can also be optimized for simplicity and ease of use
+
+TODO solidify which lines to highlight
+
+In a .svelte file
+Props, use in template
+State
+Updating state
+Reactive state
+Scoped styles
+
+Svelte is my favorite way to write UI components, but when building a web app you often need more than just a way to write components. That’s where SvelteKit comes in
+-->
+
+---
+
+# What SvelteKit handles
+
+- router
+- data loading
+- build optimizations
+- form handling
+- SSR
+- code splitting
+- deployment
+- and more!
+
+TODO some sort of image - legos?
+
+<!--
+SvelteKit handles the layer on top of your Svelte components 
+
+Svelte just says here’s a component language, it’s up to you to wire everything together, figure out how to deploy it. SvelteKit provides structure and takes care of the boring bits, and it’s the Svelte team’s recommended way to build any app with Svelte.
+
+Svelte is individual legos, SvelteKit is the foundation for a castle (Lego Knights Kingdom set) or an instruction manual.
+-->
+
+---
+class: bg-white
+---
+
+<div class="wrapper">
+
+<img src="/nuxt-logo.png">
+<img src="/nextjs-logo.png">
+<img src="/remix-logo.png">
 
 </div>
 
+<style>
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  img {
+    flex-shrink: 0;
+    max-width: 500px;
+  }
+</style>
+
+
+<!--
+If you’re familiar with the React ecosystem, think of it like NextJS or Remix, except unlike those frameworks Svelte and SvelteKit are made by the same team.
+-->
+
 ---
 
-# LaTeX
+# Plan for today
 
-LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
+- Understand what SvelteKit brings to the table
+- Brief demo
+
+<img src="/learn-svelte-dev.png" class="pt-10">
+
+<!--
+Will be doing a live demo to see it in action, but this isn’t the right place for a full tutorial. If you want that, learn.svelte.dev
+-->
+
+---
+layout: fact
+---
+
+# Values > Syntax
+
+<!--
+One way of doing this would to just show all of SvelteKit's syntax. Here's what a data loader looks like, here's what a route file looks like. And we'll be doing that, but I want to go deeper
+
+Syntax matters — I like Svelte because of its concise syntax. But it’s more interesting to understand why than what.
+
+Lets understand what SvelteKit prioritizes
+
+TODO elaborate
+-->
+
+---
+layout: fact
+---
+
+# You shouldn't have to configure your build
+
+... or your **dev server**, or your **deployment**
+
+<!--
+Build configuration can be one of the most frustrating parts of web dev for me. Feels like magic -- just need to figure out the right incantation
+Thankfully we've reached a point where I don't need to care a lot about that, at least in my hobby work
+-->
+
+---
+class: text-4xl
+layout: center
+---
+
+- optimized build
+- code splitting
+- extremely fast dev server with HMR
 
 <br>
+... with no config required on your part
 
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$
-\begin{array}{c}
-
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-
-\nabla \cdot \vec{\mathbf{B}} & = 0
-
-\end{array}
-$$
-
-<br>
-
-[Learn more](https://sli.dev/guide/syntax#latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-3 gap-10 pt-4 -mb-6">
-
-```mermaid {scale: 0.5}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectivness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-[Learn More](https://sli.dev/guide/syntax.html#diagrams)
-
----
-src: ./pages/multiple-entries.md
-hide: false
----
+<!--
+And SvelteKit can't take the credit here
+-->
 
 ---
 layout: center
-class: text-center
 ---
 
-# Learn More
+<img src="/vite.png">
 
-[Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)
+<!--
+All of this is thanks to Vite, front-end tooling that is being built on by tons of tools across the ecosystem
+
+Astro, Nuxt, Solid
+
+As well as this slide framework!
+-->
+
+---
+layout: center
+---
+
+<img src="/sveltekit-wizard.png">
+
+<!--
+Beyond build tooling, when you create a new SvelteKit app you can setup TypeScript, testing tools, Prettier, and ESLint
+-->
+
+---
+layout: center
+---
+
+<img src="/deploy-anywhere.png">
+
+<!--
+Similarly, deployment shouldn't be a hassle. SvelteKit has the concept of deployment "adapters" to support simple deployments to any supported platform
+-->
+
+---
+
+```js
+import adapter from 'svelte-adapter-foo';
+
+const config = {
+    kit: {
+        adapter: adapter()
+    }
+};
+
+export default config;
+```
+
+<br>
+
+```diff
+---import adapter from 'svelte-adapter-foo';
++++import adapter from 'svelte-adapter-better';
+
+const config = {
+    kit: {
+        adapter: adapter()
+    }
+};
+
+export default config;
+```
+
+<!--
+Here's what using an adapter looks like
+
+Swapping with a single line change
+-->
+
+---
+layout: fact
+---
+
+# Strong conventions
+(one way to do things)
+
+<!--
+minimize API surface area — less to learn and choose between
+-->
+
+---
+
+# Directory-based routing
+
+```text {all|2-5|3|4-5|all}
+src/
+├─ routes/
+│  ├─ +page.svelte
+│  ├─ about/
+│  │  ├─ +page.svelte
+```
+
+<br>
+
+```html
+<a href="/">Home</a>
+<a href="/about">About</a>
+```
+
+<!--
+Folders create routes
+<a> link between them - no link component
+-->
+
+---
+
+# Loading data: the load function
+
+```text {all|5}
+src/
+├─ routes/
+│  ├─ about/
+│  │  ├─ +page.svelte
+│  │  ├─ +page.server.js
+```
+
+<br>
+
+<div class="grid grid-cols-2 gap-6">
+
+<div>
++page.server.js
+
+```js
+export async function load() {
+	const items = await api.getItems();
+	return {
+		items
+	};
+}
+```
+</div>
+
+<div>
++page.svelte
+
+```svelte
+<script>
+  export let data;
+</script>
+
+<ul>
+{#each data.items as item}
+  <li>{item}</li>
+{/each}
+</ul>
+```
+</div>
+
+</div>
+
+---
+
+# Because this is a convention, SvelteKit can improve DX and UX
+
+SvelteKit understands what data is needed for any given page
+
+- typesafe data loading
+- preloading data
+
+<br>
+
+<img src="/typesafety.png">
+
+---
+
+TODO:
+- forms?
+- "SK doesn't want to have a convention for everything"?
+
+---
+layout: fact
+---
+
+# The client/server boundary matters
+
+---
+
+```js {all|1-8|10-30}
+export async function loader({ request }) {
+  return getProjects();
+}
+
+export async function action({ request }) {
+  const form = await request.formData();
+  return createProject({ title: form.get("title") });
+}
+
+export default function Projects() {
+  const projects = useLoaderData();
+  const { state } = useNavigation();
+  const busy = state === "submitting";
+
+  return (
+    <div>
+      {projects.map((project) => (
+        <Link to={project.slug}>{project.title}</Link>
+      ))}
+
+      <Form method="post">
+        <input name="title" />
+        <button type="submit" disabled={busy}>
+          {busy ? "Creating..." : "Create New Project"}
+        </button>
+      </Form>
+    </div>
+  );
+}
+```
+
+<!--
+Some frameworks let you write server-only and client code in the same file
+e.g. Remix
+bundling magic splits out the server code from the client code
+
+and this is great and the experimentation is exciting, but SK intentionally does not allow that
+TODO elaborate
+
+- separate files, separate contexts
+- mental model gets fuzzy
+- security implications
+-->
+
+---
+layout: fact
+---
+
+## Any code you write inside a `.server` file will stay on the server
+
+If you try to import code from a `.server` file into code that gets sent to the client, you will get an error.
+
+<!--
+Separate files, separate contexts
+-->
+
+---
+layout: center
+---
+
+
+```js
+import { API_KEY } from '$env/static/private';
+```
+
+
+<style>
+  pre {
+    --slidev-code-font-size: 1.5rem;
+    --slidev-code-line-height: 1.5;
+  }
+</style>
+
+<!--
+Built in environment variable handling that will also warn you if it gets included where it shouldn't
+-->
+
+---
+layout: fact
+---
+
+# Make it easy to work with the grain of the web
+
+
+---
+
+# Using web standard objects
+
+- Request & Response
+- URL
+- FormData
+
+<!--
+The way you interact with these objects in regular JS is the same as in SvelteKit
+Wasn't always like this - used to have custom URL object for example
+transportability of knowledge
+-->
+
+---
+layout: fact
+---
+
+# `<a>` and `<form>`
+
+<style>
+  h1 {
+    line-height: 1.5 !important;
+  }
+</style>
+
+<!--
+SK uses a to link between things, form for submitting data
+Nothing is stopping you from using other ways if you want
+
+But by using web primitives we make for a more resilient app
+-->
+
+---
+layout: image
+image: /everyone-has-js.png
+---
+
+https://www.kryogenix.org/code/browser/everyonehasjs.html
+
+<style>
+  .slidev-layout {
+    /* https://github.com/slidevjs/slidev/issues/798 */
+    background-size: contain !important;
+  }
+
+  a {
+    position: absolute;
+    bottom: 0.5rem;
+    @apply bg-white dark:bg-black;
+  }
+</style>
+
+<!--
+Everyone has JS, right? No
+If all your logic is in JS, if your JS fails to load, then you're out of luck
+But if your app is SvelteKit, the defaults will ensure some functionality (SSR, links to navigate, forms submit data)
+-->
+
+---
+layout: fact
+---
+
+# Defaults matter...
+
+make the right thing easy
+
+<!--
+Most devs don't touch the defaults
+Most devs won't read all your documentation
+It's important that you can get a good result without all that - put the site in a strong place to begin with
+
+- Encouraging the use of links and forms matter
+    - The average dev won’t do everything that goes into `use:enhance` if they had to set it up themselves
+    - And that’s not to shame them — the average dev needs to get shit done!
+-->
+
+---
+
+# What are those defaults?
+
+- links and (enhanced) forms
+- real URLs
+- SSR
+- preloading data
+- client side routing (but more accessible)
+
+<!--
+Mostly stuff we talked about
+
+Client-side routing in particular - many frameworks that default to client-side routing don't make it accessible
+- no moving focus when changing page
+- no announcing new routes
+
+we try to (though I'd like to see us do better)
+-->
+
+---
+layout: fact
+---
+
+# ... but so does flexibility
+
+the web is not just one thing
+
+---
+layout: fact
+---
+
+# Why choose?
+
+---
+layout: center
+---
+
+# Fully static or fully rendered on request
+
+<img class="m-auto" src="/porque-no.jpg">
+
+---
+
+# Page options
+
+<br>
+
+```js
+export const ssr = true; // server side rendering
+export const csr = true; // client side rendering
+export const prerender = false;
+```
+
+<style>
+  pre {
+    --slidev-code-font-size: 1.5rem;
+    --slidev-code-line-height: 1.5;
+  }
+</style>
+
+<!--
+Can configure on a per page (or per directory of pages) basis
+
+- landing page prerendered
+- turn off ssr for admin portal
+-->
+
+---
+layout: fact
+---
+
+# Putting the "Kit" in SvelteKit
+
+<!--
+Use the parts of SvelteKit that make sense for you
+As much as I've talked about links and forms - If you want to build an SPA, use a different lib for data fetching and only use SvelteKit for the routing then that works too
+-->
+
+---
+
+# Recap
+
+- Build configuration made effortless
+- Strong conventions
+- Understand the client/server boundary
+- Work with the grain of the web
+- Defaults that set you up for success
+- with the freedom to reconfigure those defaults as needed
+
+---
+layout: fact
+---
+
+# Demo time
+
+---
+
+# Why use SvelteKit?
+
+- you want to build websites with Svelte
+- or those principles sounded compelling to you
