@@ -34,6 +34,12 @@ TODO pics
 - component-based JS framework
 - uses a compiler
 
+<style>
+  ul {
+    font-size: 1.5rem;
+  }
+</style>
+
 <!--
 - [ show of hands — who has heard of Svelte? used Svelte? ]
 - So Svelte has been getting fairly well known these days, but in case this is your first time hearing about it — it is a component-based JavaScript framework like React and Vue, but the major difference is instead of interpreting your component code with a runtime it ships to the browser, it compiles your components into vanilla JavaScript at build time. So on average, this makes for applications that are typically smaller and faster than applications built with the other big frameworks.
@@ -98,7 +104,6 @@ Svelte is my favorite way to write UI components, but when building a web app yo
 - build optimizations
 - form handling
 - SSR
-- code splitting
 - deployment
 - and more!
 
@@ -274,10 +279,14 @@ layout: fact
 ---
 
 # Strong conventions
-(one way to do things)
+what do most apps need?
 
 <!--
-minimize API surface area — less to learn and choose between
+most apps need a way to navigate between different pages, load data, mutate data
+
+SK provides an answer for all of these things
+
+side note: when we can, we prefer to provide one answer
 -->
 
 ---
@@ -301,7 +310,8 @@ src/
 
 <!--
 Folders create routes
-<a> link between them - no link component
+
+`<a>` link between them - no link component
 -->
 
 ---
@@ -366,9 +376,67 @@ SvelteKit understands what data is needed for any given page
 
 ---
 
-TODO:
-- forms?
-- "SK doesn't want to have a convention for everything"?
+# Mutating data: actions
+
+<div class="grid grid-cols-2 gap-6">
+
+<div>
++page.svelte
+
+```svelte {1-5|6-23}
+<form method="POST" action="/?login">
+  <label>Username <input type="text" name="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <button>Log in</button>
+</form>
+
+<script>
+  import { enhance } from '$app/forms';
+  let submitting = false;
+</script>
+
+<form method="POST" action="/?login" use:enhance={() => {
+    submitting = true;
+    return ({ update }) {
+      submitting = false;
+      update();
+    }
+  }}>
+  <label>Username <input type="text" name="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <button disabled={submitting}>Log in</button>
+</form>
+```
+</div>
+
+<div>
++page.server.js
+
+```js
+export const actions = {
+  login: async ({ request }) => {
+    // log the user in
+    const data = await request.formData();
+    const username = data.get('username');
+    const password = data.get('password');
+    await performLogin({ username, password });
+  }
+}
+```
+
+<br>
+
+- with `use:enhance`, the form will submit without reloading the page
+- can pass a callback to customize the behavior
+- can use `fail` and `redirect` functions to return different form results
+
+</div>
+
+</div>
+
+<!--
+form has seen a bit of a comeback lately in the JS framework world (Remix, Next, Solid Start)
+-->
 
 ---
 layout: fact
@@ -378,7 +446,8 @@ layout: fact
 
 ---
 
-```js {all|1-8|10-30}
+(this is Remix, not SvelteKit)
+```js {all|1-8|10-30} {maxHeight:'400px'}
 export async function loader({ request }) {
   return getProjects();
 }
@@ -512,7 +581,7 @@ https://www.kryogenix.org/code/browser/everyonehasjs.html
   a {
     position: absolute;
     bottom: 0.5rem;
-    @apply bg-white dark:bg-black;
+    @apply bg-black;
   }
 </style>
 
@@ -537,7 +606,7 @@ It's important that you can get a good result without all that - put the site in
 
 - Encouraging the use of links and forms matter
     - The average dev won’t do everything that goes into `use:enhance` if they had to set it up themselves
-    - And that’s not to shame them — the average dev needs to get shit done!
+    - And that’s not to shame them —  but by making this the conventional, default way we set them up for success
 -->
 
 ---
@@ -552,6 +621,8 @@ It's important that you can get a good result without all that - put the site in
 
 <!--
 Mostly stuff we talked about
+
+Defaults <==> conventions - by having an answer for "how do I load data / how to I mutate data" that encourages best practices, we can increase the performance of the average SK app
 
 Client-side routing in particular - many frameworks that default to client-side routing don't make it accessible
 - no moving focus when changing page
@@ -602,6 +673,8 @@ export const prerender = false;
 </style>
 
 <!--
+We think SSR makes sense for a lot of apps. but not for everything
+
 Can configure on a per page (or per directory of pages) basis
 
 - landing page prerendered
@@ -628,7 +701,7 @@ As much as I've talked about links and forms - If you want to build an SPA, use 
 - Understand the client/server boundary
 - Work with the grain of the web
 - Defaults that set you up for success
-- with the freedom to reconfigure those defaults as needed
+- The freedom to reconfigure those defaults as needed
 
 ---
 layout: fact
@@ -636,9 +709,25 @@ layout: fact
 
 # Demo time
 
+<!--
+- artist and album routes
+- returning data, available in page
+- form action
+- use:enhance
+- customizing use:enhance for optimistic UI
+- and it works without JS (which is not just a party trick)
+-->
+
 ---
 
-# Why use SvelteKit?
+# Where to next?
 
-- you want to build websites with Svelte
-- or those principles sounded compelling to you
+- the docs: kit.svelte.dev
+- the tutorial: learn.svelte.dev
+- my stuff: geoffrich.net
+
+---
+layout: fact
+---
+
+# Thanks!

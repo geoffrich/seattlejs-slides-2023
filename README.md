@@ -12,5 +12,5 @@ Learn more about Slidev on [documentations](https://sli.dev/).
 
 TODO
 
-- globally bump font size?
-- use:enhance somewhere
+- bump font size
+- figure out what to show/hide
