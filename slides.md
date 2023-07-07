@@ -25,7 +25,23 @@ title: SvelteKit intro
 - pianist
 - cat lover
 
-TODO pics
+<br>
+
+<div class="images">
+
+<img src="/cats.jpg" height="300" width="200">
+
+<img src="/cats2.jpg" height="200" width="300">
+
+</div>
+
+<style>
+  .images {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+</style>
 
 ---
 
@@ -33,6 +49,7 @@ TODO pics
 
 - component-based JS framework
 - uses a compiler
+- smaller & faster* apps
 
 <style>
   ul {
@@ -42,7 +59,7 @@ TODO pics
 
 <!--
 - [ show of hands — who has heard of Svelte? used Svelte? ]
-- So Svelte has been getting fairly well known these days, but in case this is your first time hearing about it — it is a component-based JavaScript framework like React and Vue, but the major difference is instead of interpreting your component code with a runtime it ships to the browser, it compiles your components into vanilla JavaScript at build time. So on average, this makes for applications that are typically smaller than applications built with the other big frameworks.
+- So Svelte has been getting fairly well known these days, but in case this is your first time hearing about it — it is a component-based JavaScript framework like React and Vue, but the major difference is instead of interpreting your component code with a runtime it ships to the browser, it compiles your components into vanilla JavaScript at build time. So on average, this makes for applications that are typically smaller and faster than applications built with the other big frameworks.
 -->
 
 ---
@@ -55,15 +72,16 @@ layout: fact
 
 <!--
 for instance, a Svelte "hello world" is under 3KB
+
+Faster does have an asterisk - in the years since Svelte has come out, the gap has narrowed and now a framework like Vue is slightly ahead of Svelte when you look at the benchmarks
 -->
 
 ---
 
 # Minimal boilerplate
 
-```svelte {all|2,13|3,7|3,10-12|all}
+```svelte {all|2,6|2,6,9-11|2,3,6,7|9-19|all}
 <script>
-  export let label = 'Increase count';
   let count = 0;
   $: doubled = count * 2;
 </script>
@@ -74,7 +92,7 @@ for instance, a Svelte "hello world" is under 3KB
 <button on:click={() => {
   count = count + 1;
 }}>
-  {label}
+  Increment
 </button>
 
 <style>
@@ -85,16 +103,21 @@ for instance, a Svelte "hello world" is under 3KB
 ```
 
 <!--
-- And because it’s a compiler, the component authoring experience can also be optimized for simplicity and ease of use
+But for me, the reason I love svelte is not because it's the smallest or the fastest framework -- it does well there, but it's not #1
 
-TODO solidify which lines to highlight
+It's how productive it feels to write Svelte components.
+
+Because it’s a compiler, the component authoring experience can also be optimized for simplicity and ease of use
+
+This is what a Svelte component looks like
 
 - In a .svelte file
-- Props, use in template
 - State
 - Updating state
 - Reactive state
 - Scoped styles
+
+That's Svelte, if it's new to you I recommend giving it a try
 
 Svelte is my favorite way to write UI components, but when building a web app you often need more than just a way to write components. That’s where SvelteKit comes in
 -->
@@ -105,7 +128,7 @@ Svelte is my favorite way to write UI components, but when building a web app yo
 
 - router
 - data loading
-- build optimizations
+- build optimization
 - form handling
 - SSR
 - deployment
@@ -114,9 +137,13 @@ Svelte is my favorite way to write UI components, but when building a web app yo
 TODO some sort of image - legos?
 
 <!--
-SvelteKit handles the layer on top of your Svelte components 
+SvelteKit - everything you need to build a full app or website
+
+handles the layer on top of your Svelte components 
 
 Svelte just says here’s a component language, it’s up to you to wire everything together, figure out how to deploy it. SvelteKit provides structure and takes care of the boring bits, and it’s the Svelte team’s recommended way to build any app with Svelte.
+
+So you don't have to provide answers for all these things yourself
 
 Svelte is individual legos, SvelteKit is the foundation for a castle (Lego Knights Kingdom set) or an instruction manual.
 -->
@@ -174,6 +201,8 @@ layout: fact
 One way of doing this would to just show all of SvelteKit's syntax. Here's what a data loader looks like, here's what a route file looks like. And we'll be doing that, but I want to go beyond regurgitating syntax
 
 Syntax matters — I like Svelte because of its concise-yet-readable syntax. But it’s more interesting to understand why than what.
+
+Choosing a framework is more than just syntax
 
 Lets understand the principles that make SvelteKit what it is
 
@@ -257,47 +286,8 @@ layout: center
 Similarly, deployment shouldn't be a hassle. SvelteKit has the concept of deployment "adapters" to support simple deployments to any supported platform
 
 Vercel, Netlify, Cloudflare, Azure, or as plain Node JS or a collection of static files
--->
 
----
-
-```js {all|1|all}
-import adapter from 'svelte-adapter-foo';
-
-const config = {
-    kit: {
-        adapter: adapter()
-    }
-};
-
-export default config;
-```
-
-<br>
-
-<div v-click>
-
-```diff 
----import adapter from 'svelte-adapter-foo';
-+++import adapter from 'svelte-adapter-better';
-
-const config = {
-    kit: {
-        adapter: adapter()
-    }
-};
-
-export default config;
-```
-
-</div>
-
-<!--
-Here's what using an adapter looks like
-
-Swapping with a single line change
-
-So that's the configuration story, let's move on to what else SvelteKit values
+Changing deployment platforms can be a one-line change
 -->
 
 ---
@@ -308,7 +298,9 @@ layout: fact
 what do most apps need?
 
 <!--
-and that's strong conventions around what's needed by all apps
+strong conventions around what's needed by all apps
+
+just like Svelte is batteries-included for common component concerns like styling, SvelteKit is that for apps
 
 most apps need a way to navigate between different pages, load data, mutate data
 
@@ -376,9 +368,13 @@ and then after the initial load, SK will use client-side navigation for a snappy
 
 <br>
 
+<v-clicks>
+
 - doesn't start until JS parsed & component rendered
 - boilerplate
 - users without JS are out of luck
+
+</v-clicks>
 
 <!--
 most apps need to load data - here's how you'd do that in pure svelte
@@ -477,19 +473,12 @@ SvelteKit understands what data is needed for any given page
 
 <script>
   import { enhance } from '$app/forms';
-  let submitting = false;
 </script>
 
-<form method="POST" action="/?login" use:enhance={() => {
-    submitting = true;
-    return ({ update }) {
-      submitting = false;
-      update();
-    }
-  }}>
+<form method="POST" action="/?login" use:enhance>
   <label>Username <input type="text" name="username"></label>
   <label>Password <input type="password" name="password"></label>
-  <button disabled={submitting}>Log in</button>
+  <button>Log in</button>
 </form>
 ```
 </div>
@@ -515,7 +504,6 @@ export const actions = {
 
 - with `use:enhance`, the form will submit without reloading the page
 - can pass a callback to customize the behavior
-- can use `fail` and `redirect` functions to return different form results
 
 </div>
 
@@ -530,7 +518,7 @@ form has seen a bit of a comeback lately in the JS framework world (Remix, Next,
 
 SK also likes forms
 
-TODO is enhance customization too much?
+- progressive enhancement
 -->
 
 ---
@@ -599,27 +587,6 @@ If you try to import code from a `.server` file into code that gets sent to the 
 we saw +page.server.js before for load functions - the .server indicates that you're in a server-only context
 
 Separate files, separate contexts
--->
-
----
-layout: center
----
-
-
-```js
-import { API_KEY } from '$env/static/private';
-```
-
-
-<style>
-  pre {
-    --slidev-code-font-size: 1.5rem;
-    --slidev-code-line-height: 1.5;
-  }
-</style>
-
-<!--
-Built in environment variable handling that will also warn you if it gets included where it shouldn't
 -->
 
 ---
@@ -740,13 +707,8 @@ layout: fact
 
 # ... but so does flexibility
 
-the web is not just one thing
+the web is not just one thing, so why choose?
 
----
-layout: fact
----
-
-# Why choose?
 
 ---
 layout: center
@@ -800,8 +762,8 @@ As much as I've talked about links and forms - If you want to build an SPA, use 
 # Recap
 
 - Build configuration made effortless
-- Strong conventions
 - Understand the client/server boundary
+- Strong conventions
 - Work with the grain of the web
 - Defaults that set you up for success
 - The freedom to reconfigure those defaults as needed
@@ -825,9 +787,17 @@ layout: fact
 
 # Where to next?
 
-- the docs: kit.svelte.dev
+- the docs: svelte.dev / kit.svelte.dev
 - the tutorial: learn.svelte.dev
-- my stuff: geoffrich.net
+- Svelte discord: svelte.dev/chat
+
+## my stuff
+
+<br>
+
+- site: geoffrich.net
+- twitter: @geoffrich_
+- mastodon: @geoffrich@front-end.social
 
 ---
 layout: fact
