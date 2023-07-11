@@ -126,6 +126,8 @@ Svelte is my favorite way to write UI components, but when building a web app yo
 
 # What SvelteKit handles
 
+<div class="grid grid-cols-2 gap-6 text-2xl">
+
 - router
 - data loading
 - build optimization
@@ -134,18 +136,25 @@ Svelte is my favorite way to write UI components, but when building a web app yo
 - deployment
 - and more!
 
-TODO some sort of image - legos?
+<img src="/legos.jpg" width="300" height="200">
+
+</div>
+
 
 <!--
 SvelteKit - everything you need to build a full app or website
 
 handles the layer on top of your Svelte components 
 
-Svelte just says here’s a component language, it’s up to you to wire everything together, figure out how to deploy it. SvelteKit provides structure and takes care of the boring bits, and it’s the Svelte team’s recommended way to build any app with Svelte.
-
 So you don't have to provide answers for all these things yourself
 
-Svelte is individual legos, SvelteKit is the foundation for a castle (Lego Knights Kingdom set) or an instruction manual.
+"metaframework"
+
+Svelte just says here’s a component language, it’s up to you to wire everything together, figure out how to deploy it. SvelteKit provides structure & conventions and lets you spend your time building instead of configuring 
+
+it’s the Svelte team’s recommended way to build any app with Svelte.
+
+Svelte is individual legos, SvelteKit helps assemble those legos into a full build
 -->
 
 ---
@@ -154,9 +163,9 @@ class: bg-white
 
 <div class="wrapper">
 
-<img src="/nuxt-logo.png">
 <img src="/nextjs-logo.png">
 <img src="/remix-logo.png">
+<img src="/nuxt-logo-big.png">
 
 </div>
 
@@ -169,7 +178,7 @@ class: bg-white
   }
   img {
     flex-shrink: 0;
-    max-width: 500px;
+    max-width: 450px;
   }
 </style>
 
@@ -568,11 +577,14 @@ e.g. Remix
 bundling magic splits out the server code from the client code
 
 and this is great and the experimentation is exciting, but SK intentionally does not allow that
-TODO elaborate
 
+we want to be very clear about what is server code and what is client code
+
+- clearer mental model
 - separate files, separate contexts
-- mental model gets fuzzy
-- security implications
+- you don't have to understand rules around what is server and what is client 
+
+maybe this will become more common, but for now this is what we think makes sense
 -->
 
 ---

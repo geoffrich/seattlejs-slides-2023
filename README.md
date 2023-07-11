@@ -14,3 +14,4 @@ TODO
 
 - bump font size
 - figure out what to show/hide
+- post slides
