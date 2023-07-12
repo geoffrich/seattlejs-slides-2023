@@ -47,33 +47,34 @@ title: SvelteKit intro
 
 # What is Svelte?
 
-- component-based JS framework
-- uses a compiler
-- smaller & faster* apps
+a _component-based JS framework_ that uses a <span class="svelte">compiler</span>
 
 <style>
-  ul {
-    font-size: 1.5rem;
+  h1 {
+    text-align: center;
+    font-size: 3rem !important;
+  }
+
+  p {
+    text-align: center;
+    display: block;
+    margin-top: 7rem !important;
+    font-size: 3rem;
+    line-height: 1.5 !important;
+    opacity: 1 !important;
+  }
+
+  .svelte {
+    background-color: hsl(15, 100%, 40%);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    font-weight: bold;
   }
 </style>
 
 <!--
 - [ show of hands — who has heard of Svelte? used Svelte? ]
-- So Svelte has been getting fairly well known these days, but in case this is your first time hearing about it — it is a component-based JavaScript framework like React and Vue, but the major difference is instead of interpreting your component code with a runtime it ships to the browser, it compiles your components into vanilla JavaScript at build time. So on average, this makes for applications that are typically smaller and faster than applications built with the other big frameworks.
--->
-
----
-layout: fact
----
-
-# 3KB
-
-(gzipped and compressed)
-
-<!--
-for instance, a Svelte "hello world" is under 3KB
-
-Faster does have an asterisk - in the years since Svelte has come out, the gap has narrowed and now a framework like Vue is slightly ahead of Svelte when you look at the benchmarks
+- So Svelte has been getting fairly well known these days, but in case this is your first time hearing about it — it is a component-based JavaScript framework like React and Vue, but the major difference is instead of interpreting your component code with a runtime it ships to the browser, it compiles your components into vanilla JavaScript at build time. So the advantage of this is that you can ship less JavaScript to your users, and your application has to do less work because it has compiled away a lot at build time
 -->
 
 ---
@@ -103,6 +104,8 @@ Faster does have an asterisk - in the years since Svelte has come out, the gap h
 ```
 
 <!--
+[ don't dwell too long on this ]
+
 But for me, the reason I love svelte is not because it's the smallest or the fastest framework -- it does well there, but it's not #1
 
 It's how productive it feels to write Svelte components.
@@ -115,18 +118,18 @@ This is what a Svelte component looks like
 - State
 - Updating state
 - Reactive state
-- Scoped styles
+- Scoped styles (batteries included)
 
 That's Svelte, if it's new to you I recommend giving it a try
 
-Svelte is my favorite way to write UI components, but when building a web app you often need more than just a way to write components. That’s where SvelteKit comes in
+Svelte is my favorite way to write UI components, but when building a web app you often need more than just a way to write components. 
 -->
 
 ---
 
-# What SvelteKit handles
+# Production app requirements
 
-<div class="grid grid-cols-2 gap-6 text-2xl">
+<v-clicks>
 
 - router
 - data loading
@@ -136,25 +139,37 @@ Svelte is my favorite way to write UI components, but when building a web app yo
 - deployment
 - and more!
 
-<img src="/legos.jpg" width="300" height="200">
+</v-clicks>
 
-</div>
+<style>
+  ul {
+    font-size: 1.5rem;
+  }
 
+</style>
 
 <!--
-SvelteKit - everything you need to build a full app or website
+There are all these things that go into building a full web app that a component framework doesn't handle
 
-handles the layer on top of your Svelte components 
+while you can answer all these yourself or find packages on npm, it would be nice to have a framework that already answers these questions so you don't have to
 
-So you don't have to provide answers for all these things yourself
+and that's what SvelteKit does
+-->
 
-"metaframework"
+---
+layout: center
+---
 
-Svelte just says here’s a component language, it’s up to you to wire everything together, figure out how to deploy it. SvelteKit provides structure & conventions and lets you spend your time building instead of configuring 
+<img src="/sveltekit-logo.png">
+
+<!--
+
+SvelteKit brings everything you need to build a full app or website
+
+Svelte just says here’s a component language, it’s up to you to wire everything together, figure out how to deploy it. SvelteKit provides structure & conventions and lets you spend your time building instead of configuring and choosing between packages on npm
 
 it’s the Svelte team’s recommended way to build any app with Svelte.
 
-Svelte is individual legos, SvelteKit helps assemble those legos into a full build
 -->
 
 ---
@@ -213,8 +228,9 @@ Syntax matters — I like Svelte because of its concise-yet-readable syntax. But
 
 Choosing a framework is more than just syntax
 
-Lets understand the principles that make SvelteKit what it is
+It's also values -- express themselves in code & what you ship
 
+Lets understand the principles that make SvelteKit what it is
 -->
 
 ---
@@ -240,7 +256,7 @@ layout: center
 
 - optimized build (tree shaking, minification, module preloading)
 - code splitting (JS and CSS)
-- extremely fast dev server with HMR
+- extremely fast dev server that quickly updates with changes
 
 <br>
 ... with no config required on your part
@@ -281,7 +297,7 @@ layout: center
 </style>
 
 <!--
-Beyond build tooling, when you create a new SvelteKit app you can setup TypeScript, testing tools, Prettier, and ESLint
+Beyond build tooling, when you create a new SvelteKit app you can automatically configure TypeScript, testing tools, Prettier, and ESLint
 -->
 
 ---
@@ -294,7 +310,7 @@ layout: center
 <!--
 Similarly, deployment shouldn't be a hassle. SvelteKit has the concept of deployment "adapters" to support simple deployments to any supported platform
 
-Vercel, Netlify, Cloudflare, Azure, or as plain Node JS or a collection of static files
+Vercel, Netlify, Cloudflare, Azure, or as plain Node JS or a collection of static files -- and more from the community
 
 Changing deployment platforms can be a one-line change
 -->
@@ -314,12 +330,6 @@ just like Svelte is batteries-included for common component concerns like stylin
 most apps need a way to navigate between different pages, load data, mutate data
 
 SK provides an answer for all of these things
-
-by providing an answer:
-
-- set devs up for success
-- easier onboarding to projects using SvelteKit
-- batteries included
 -->
 
 ---
@@ -357,46 +367,6 @@ and then after the initial load, SK will use client-side navigation for a snappy
 
 ---
 
-# Loading data: before SvelteKit
-
-```svelte
-<script>
-  import { onMount } from 'svelte';
-
-  let data;
-
-  onMount(() => {
-    fetch('/api/items')
-      .then(r => r.json())
-      .then(result => {
-        data = result;
-      });
-  });
-</script>
-```
-
-<br>
-
-<v-clicks>
-
-- doesn't start until JS parsed & component rendered
-- boilerplate
-- users without JS are out of luck
-
-</v-clicks>
-
-<!--
-most apps need to load data - here's how you'd do that in pure svelte
-
-parsing/loading/error handling all by yourself
-
-issues with this approach
-
-this still works in SvelteKit but there's a better way
--->
-
----
-
 # Loading data: the load function
 
 ```text {all|3-4|3,5}
@@ -414,7 +384,7 @@ src/
 <div>
 +page.server.js
 
-```js
+```js {all|2-5}
 export async function load() {
 	const items = await api.getItems();
 	return {
@@ -427,7 +397,7 @@ export async function load() {
 <div>
 +page.svelte
 
-```svelte
+```svelte {all|2|2,6-8}
 <script>
   export let data;
 </script>
@@ -443,6 +413,10 @@ export async function load() {
 </div>
 
 <!--
+similarly, most apps need a way to load data
+
+in SK: the load function
+
 loads the data for the page
 
 when you navigate to this route, SK will call the load function
@@ -464,6 +438,12 @@ SvelteKit understands what data is needed for any given page
 
 <img src="/typesafety.png" v-click>
 
+<style>
+  ul {
+    font-size: 1.5rem;
+  }
+</style>
+
 ---
 
 # Mutating data: actions
@@ -473,10 +453,12 @@ SvelteKit understands what data is needed for any given page
 <div>
 +page.svelte
 
-```svelte {1-5|6-23}
+```svelte {1-7|8-13|8-27}
 <form method="POST" action="/?login">
-  <label>Username <input type="text" name="username"></label>
-  <label>Password <input type="password" name="password"></label>
+  <label>Username 
+    <input type="text" name="username"></label>
+  <label>Password 
+    <input type="password" name="password"></label>
   <button>Log in</button>
 </form>
 
@@ -485,8 +467,10 @@ SvelteKit understands what data is needed for any given page
 </script>
 
 <form method="POST" action="/?login" use:enhance>
-  <label>Username <input type="text" name="username"></label>
-  <label>Password <input type="password" name="password"></label>
+  <label>Username 
+    <input type="text" name="username"></label>
+  <label>Password 
+    <input type="password" name="password"></label>
   <button>Log in</button>
 </form>
 ```
@@ -507,98 +491,38 @@ export const actions = {
 }
 ```
 
-<br>
-
-<div v-click>
-
-- with `use:enhance`, the form will submit without reloading the page
-- can pass a callback to customize the behavior
-
-</div>
-
 </div>
 
 </div>
 
 <!--
-just like most apps need to load data, most apps need to mutate data
+just like most apps need to load data from an API, most apps need to submit updates to that data
+
+and that's where forms come in
 
 form has seen a bit of a comeback lately in the JS framework world (Remix, Next, Solid Start)
 
 SK also likes forms
 
-- progressive enhancement
--->
+while you can submit data with a regular fetch call if you want to
 
----
-layout: fact
----
+forms provide better defaults - they still function even if your JS fails
 
-# The client/server boundary matters
+to submit data in SK app: create a form, declare a form action in +page.server.js to handle that form submission
 
----
+when you submit the form, your action can read the submitted data and handle it
 
-(this is Remix, not SvelteKit)
-```js {all|1-8|10-30} {maxHeight:'400px'}
-export async function loader({ request }) {
-  return getProjects();
-}
+call out significance of .server.js -- so you know you're in a server only context, free to access DB directly or use sensitive keys, whatever
 
-export async function action({ request }) {
-  const form = await request.formData();
-  return createProject({ title: form.get("title") });
-}
+but regular forms aren't necessarily the best user experience
 
-export default function Projects() {
-  const projects = useLoaderData();
-  const { state } = useNavigation();
-  const busy = state === "submitting";
+which is why SK provides built in progressive enhancement
 
-  return (
-    <div>
-      {projects.map((project) => (
-        <Link to={project.slug}>{project.title}</Link>
-      ))}
+so use:enhance - when JS available, submit the form using a fetch call instead
 
-      <Form method="post">
-        <input name="title" />
-        <button type="submit" disabled={busy}>
-          {busy ? "Creating..." : "Create New Project"}
-        </button>
-      </Form>
-    </div>
-  );
-}
-```
+best of both worlds -- it's resilient and will work when JS fails, but will enhance to a better user experience when it can
 
-<!--
-Some frameworks let you write server-only and client code in the same file
-e.g. Remix
-bundling magic splits out the server code from the client code
-
-and this is great and the experimentation is exciting, but SK intentionally does not allow that
-
-we want to be very clear about what is server code and what is client code
-
-- clearer mental model
-- separate files, separate contexts
-- you don't have to understand rules around what is server and what is client 
-
-maybe this will become more common, but for now this is what we think makes sense
--->
-
----
-layout: fact
----
-
-## Any code you write inside a `.server` file will stay on the server
-
-If you try to import code from a `.server` file into code that gets sent to the client, you will get an error.
-
-<!--
-we saw +page.server.js before for load functions - the .server indicates that you're in a server-only context
-
-Separate files, separate contexts
+ok, that was a lot, check out the tutorial. happy to answer any questions later.
 -->
 
 ---
@@ -606,23 +530,6 @@ layout: fact
 ---
 
 # Make it easy to work with the grain of the web
-
-
----
-
-# Using web standard objects
-
-- Request & Response
-- URL
-- FormData
-
-<!--
-The way you interact with these objects in regular JS is the same as in SvelteKit
-
-Wasn't always like this - used to have custom URL object for example
-
-transportability of knowledge
--->
 
 ---
 layout: fact
@@ -664,13 +571,39 @@ https://www.kryogenix.org/code/browser/everyonehasjs.html
 </style>
 
 <!--
-Everyone has JS, right? No
+I've talked a lot about JS not being available
 
-very few people disable JS. but it's common for people to be in situations where JS is slow to load or even fails to load
+And that's not just users who have disabled JS, but also all the cases where JS fails
 
 If all your logic is in JS, if your JS fails to load, then you're out of luck
 
 But if your app is SvelteKit (or another framework that prioritizes PE), the defaults will ensure some functionality (SSR, links to navigate, forms submit data)
+-->
+
+---
+
+# Using web standard objects
+
+- Request & Response
+- URL
+- FormData
+
+<style>
+  ul {
+    font-size: 1.5rem;
+  }
+</style>
+
+<!--
+beyond links and forms, much of Svelte's API is the browser standard objects
+
+no proprietary request/response/url
+
+The way you interact with these objects in regular JS is the same as in SvelteKit
+
+Wasn't always like this - used to have custom URL object for example
+
+transportability of knowledge
 -->
 
 ---
@@ -699,18 +632,17 @@ make the right thing easy
 - real URLs
 - SSR
 - preloading data
-- client side routing (but more accessible)
+
+<style>
+  ul {
+    font-size: 1.5rem;
+  }
+</style>
 
 <!--
 Mostly stuff we talked about
 
 Defaults <==> conventions - by having an answer for "how do I load data / how to I mutate data" that encourages best practices, we can increase the performance of the average SK app
-
-Client-side routing in particular - many frameworks that default to client-side routing don't make it accessible
-- no moving focus when changing page
-- no announcing new routes
-
-we try to (though I'd like to see us do better)
 -->
 
 ---
@@ -721,6 +653,26 @@ layout: fact
 
 the web is not just one thing, so why choose?
 
+---
+layout: fact
+---
+
+# Defaults, not demands
+
+putting the "Kit" in SvelteKit
+
+<!--
+we do have these defaults and conventions, but we recognize they don't make sense for every app
+
+Use the parts of SvelteKit that make sense for you
+
+As much as I've talked about links and forms - If you want to build an SPA, use a different lib for data fetching and only use SvelteKit for the routing then that works too
+
+SvelteKit is the framework that grows with you! Start simple and use more features as you need them.
+
+this also extends to how your app is served -- you don't need a server
+
+-->
 
 ---
 layout: center
@@ -728,7 +680,15 @@ layout: center
 
 # Fully static or fully rendered on request
 
-<img class="m-auto" src="/porque-no.jpg">
+<img class="m-auto" src="/porque-no.jpg" v-click>
+
+<!--
+you can build static sites / SPAs with SK too
+
+but it's not just that you can choose this at the app level: static site or server site
+
+you can configure this on a per page basis
+-->
 
 ---
 
@@ -736,10 +696,11 @@ layout: center
 
 <br>
 
-```js
++page.js
+
+```js {1|all}
+export const prerender = true;
 export const ssr = true; // server side rendering
-export const csr = true; // client side rendering
-export const prerender = false;
 ```
 
 <style>
@@ -750,6 +711,10 @@ export const prerender = false;
 </style>
 
 <!--
+prerender: control whether page is turned into HTML at build time
+
+similarly: SSR
+
 We think SSR makes sense for a lot of apps. but not for everything
 
 Can configure on a per page (or per directory of pages) basis
@@ -759,26 +724,20 @@ Can configure on a per page (or per directory of pages) basis
 -->
 
 ---
-layout: fact
----
-
-# Putting the "Kit" in SvelteKit
-
-<!--
-Use the parts of SvelteKit that make sense for you
-As much as I've talked about links and forms - If you want to build an SPA, use a different lib for data fetching and only use SvelteKit for the routing then that works too
--->
-
----
 
 # Recap
 
 - Build configuration made effortless
-- Understand the client/server boundary
 - Strong conventions
 - Work with the grain of the web
 - Defaults that set you up for success
 - The freedom to reconfigure those defaults as needed
+
+<style>
+  ul {
+    font-size: 1.5rem;
+  }
+</style>
 
 ---
 layout: fact
@@ -788,28 +747,41 @@ layout: fact
 
 <!--
 - artist and album routes
+- data preloading
 - returning data, available in page
 - form action
 - use:enhance
-- customizing use:enhance for optimistic UI
-- and it works without JS (which is not just a party trick)
+- customizing use:enhance for optimistic UI (gloss over)
 -->
 
 ---
 
 # Where to next?
 
-- the docs: svelte.dev / kit.svelte.dev
 - the tutorial: learn.svelte.dev
+- the docs: svelte.dev / kit.svelte.dev
 - Svelte discord: svelte.dev/chat
 
-## my stuff
+## stuff we didn't cover
+- layouts (and loading data in them)
+- advanced routing
+- customizing use:enhance
+- data streaming
+- client-only loads
+- API routes
+- middleware
+- environment variables
+- and more!
 
-<br>
+---
+
+# my stuff
 
 - site: geoffrich.net
 - twitter: @geoffrich_
 - mastodon: @geoffrich@front-end.social
+
+## slides / demo: geoffrich.net/posts/seattlejs-2023
 
 ---
 layout: fact
