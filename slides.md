@@ -353,6 +353,17 @@ src/
 <a href="/about">About</a>
 ```
 
+<style>
+  p {
+    font-size: 2rem !important;
+    margin-top: 0.2rem !important;
+  }
+  pre {
+    --slidev-code-font-size: 1.5rem;
+    --slidev-code-line-height: 1.5;
+  }
+</style>
+
 <!--
 Folders create routes
 
@@ -369,14 +380,6 @@ and then after the initial load, SK will use client-side navigation for a snappy
 
 # Loading data: the load function
 
-```text {all|3-4|3,5}
-src/
-├─ routes/
-│  ├─ about/
-│  │  ├─ +page.svelte
-│  │  ├─ +page.server.js
-```
-
 <br>
 
 <div class="grid grid-cols-2 gap-6">
@@ -384,9 +387,10 @@ src/
 <div>
 +page.server.js
 
-```js {all|2-5}
+```js {all|2-6}
 export async function load() {
-	const items = await api.getItems();
+	const items = 
+      await api.getItems();
 	return {
 		items
 	};
@@ -411,6 +415,13 @@ export async function load() {
 </div>
 
 </div>
+
+<style>
+  pre {
+    --slidev-code-font-size: 1.5rem;
+    --slidev-code-line-height: 1.5;
+  }
+</style>
 
 <!--
 similarly, most apps need a way to load data
@@ -439,6 +450,12 @@ SvelteKit understands what data is needed for any given page
 <img src="/typesafety.png" v-click>
 
 <style>
+  p {
+    font-size: 1.5rem !important;
+    opacity: 1 !important;
+    margin-top: 0.2rem !important;
+  }
+
   ul {
     font-size: 1.5rem;
   }
@@ -453,24 +470,18 @@ SvelteKit understands what data is needed for any given page
 <div>
 +page.svelte
 
-```svelte {1-7|8-13|8-27}
-<form method="POST" action="/?login">
+```svelte {all|3|5-7,9-11|all}
+<form 
+    method="POST" 
+    action="/?login">
   <label>Username 
-    <input type="text" name="username"></label>
+    <input 
+      type="text" 
+      name="username"></label>
   <label>Password 
-    <input type="password" name="password"></label>
-  <button>Log in</button>
-</form>
-
-<script>
-  import { enhance } from '$app/forms';
-</script>
-
-<form method="POST" action="/?login" use:enhance>
-  <label>Username 
-    <input type="text" name="username"></label>
-  <label>Password 
-    <input type="password" name="password"></label>
+    <input 
+      type="password" 
+      name="password"></label>
   <button>Log in</button>
 </form>
 ```
@@ -479,14 +490,18 @@ SvelteKit understands what data is needed for any given page
 <div>
 +page.server.js
 
-```js
+```js {all|3-8|all}
 export const actions = {
   login: async ({ request }) => {
-    // log the user in
-    const data = await request.formData();
-    const username = data.get('username');
-    const password = data.get('password');
-    await performLogin({ username, password });
+    const data = 
+        await request.formData();
+    const username = 
+        data.get('username');
+    const password = 
+        data.get('password');
+    await performLogin({ 
+      username, password 
+    });
   }
 }
 ```
@@ -494,6 +509,13 @@ export const actions = {
 </div>
 
 </div>
+
+<style>
+  pre {
+    --slidev-code-font-size: 1.3rem;
+    --slidev-code-line-height: 1.5;
+  }
+</style>
 
 <!--
 just like most apps need to load data from an API, most apps need to submit updates to that data
@@ -515,7 +537,32 @@ when you submit the form, your action can read the submitted data and handle it
 call out significance of .server.js -- so you know you're in a server only context, free to access DB directly or use sensitive keys, whatever
 
 but regular forms aren't necessarily the best user experience
+-->
 
+---
+
+```svelte {all|2,5|all}
+<script>
+  import { enhance } from '$app/forms';
+</script>
+
+<form method="POST" action="/?login" use:enhance>
+  <label>Username 
+    <input type="text" name="username"></label>
+  <label>Password 
+    <input type="password" name="password"></label>
+  <button>Log in</button>
+</form>
+```
+
+<style>
+  pre {
+    --slidev-code-font-size: 1.5rem;
+    --slidev-code-line-height: 1.5;
+  }
+</style>
+
+<!--
 which is why SK provides built in progressive enhancement
 
 so use:enhance - when JS available, submit the form using a fetch call instead
