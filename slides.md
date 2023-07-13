@@ -590,7 +590,7 @@ But if your app is SvelteKit (or another framework that prioritizes PE), the def
 
 <style>
   ul {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 </style>
 
@@ -635,7 +635,7 @@ make the right thing easy
 
 <style>
   ul {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 </style>
 
@@ -735,7 +735,7 @@ Can configure on a per page (or per directory of pages) basis
 
 <style>
   ul {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 </style>
 
@@ -756,11 +756,19 @@ layout: fact
 
 ---
 
+<div class="grid grid-cols-2 gap-6">
+
+<div>
+
 # Where to next?
 
 - the tutorial: learn.svelte.dev
 - the docs: svelte.dev / kit.svelte.dev
 - Svelte discord: svelte.dev/chat
+
+</div>
+
+<div>
 
 ## stuff we didn't cover
 - layouts (and loading data in them)
@@ -773,6 +781,16 @@ layout: fact
 - environment variables
 - and more!
 
+</div>
+
+</div>
+
+<style>
+  ul {
+    font-size: 1.5rem;
+  }
+</style>
+
 ---
 
 # my stuff
@@ -782,6 +800,12 @@ layout: fact
 - mastodon: @geoffrich@front-end.social
 
 ## slides / demo: geoffrich.net/posts/seattlejs-2023
+
+<style>
+  ul {
+    font-size: 2rem;
+  }
+</style>
 
 ---
 layout: fact
