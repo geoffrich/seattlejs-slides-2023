@@ -79,9 +79,7 @@ a _component-based JS framework_ that uses a <span class="svelte">compiler</span
 
 ---
 
-# Minimal boilerplate
-
-```svelte {all|2,6|2,6,9-11|2,3,6,7|9-19|all}
+```svelte {all|2,6|2,6,9-11|2,3,6,7|9-19|all} {maxHeight:'500px'}
 <script>
   let count = 0;
   $: doubled = count * 2;
@@ -102,6 +100,13 @@ a _component-based JS framework_ that uses a <span class="svelte">compiler</span
   }
 </style>
 ```
+
+<style>
+  pre {
+    --slidev-code-font-size: 1.5rem;
+    --slidev-code-line-height: 1.5;
+  }
+</style>
 
 <!--
 [ don't dwell too long on this ]
